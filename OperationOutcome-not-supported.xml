@@ -1,0 +1,11 @@
+<OperationOutcome xmlns="http://hl7.org/fhir">
+	<id value="not-supported" />
+	<issue>
+		<severity value="error" />
+		<code value="not-supported" />
+		<details>
+			<text
+				value="The Barcode Processor failed to decode the barcode string" />
+		</details>
+	</issue>
+</OperationOutcome> 

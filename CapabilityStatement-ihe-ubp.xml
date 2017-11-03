@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CapabilityStatement xmlns="http://hl7.org/fhir">
+	<id value="ihe-ubp" />
+	<version value="20171031" />
+	<name value="IHE-UBP" />
+	<title value="IHE-UBP Barcode Capability Statement" />
+	<status value="draft" />
+	<experimental value="true" />
+	<date value="2017-10-31" />
+	<publisher value="IHE" />
+	<contact>
+		<name value="Michael van der Zel" />
+		<telecom>
+			<system value="email" />
+			<value value="m.van.der.zel@umcg.nl" />
+		</telecom>
+	</contact>
+	<description
+		value="This is the FHIR capability statement for the IHE-UBP Supplement for Barcode Scanning" />
+	<purpose
+		value="Main EHR capability statement, published for contracting and operational support" />
+	<copyright value="Copyright &#xA9; IHE" />
+	<kind value="instance" />
+	<fhirVersion value="3.0.1" />
+	<implementationGuide value="https://ihe.net/fhir/ImplementationGuide/decode-barcode" />
+	<resource>
+		<operation>
+			<name value="decode-barcode"/>
+			<definition>
+				<reference value="https://ihe.net/fhir/OperationDefinition/decode-barcode"/>
+			</definition>
+		</operation>
+	</resource>
+</CapabilityStatement>

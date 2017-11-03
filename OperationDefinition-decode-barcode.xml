@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OperationDefinition xmlns="http://hl7.org/fhir">
+	<id value="decode-barcode" />
+	<version value="20171031" />
+	<name value="Decode Barcode" />
+	<status value="draft" />
+	<kind value="operation" />
+	<date value="2017-10-31" />
+	<publisher value="IHE" />
+	<contact>
+		<name value="Michael van der Zel" />
+		<telecom>
+			<system value="email" />
+			<value value="m.van.der.zel@umcg.nl" />
+		</telecom>
+	</contact>
+	<code value="decode-barcode" />
+	<resource value="Bundle" />
+	<resource value="Device" />
+	<resource value="Medication" />
+	<resource value="Patient" />
+	<resource value="Practitioner" />
+	<resource value="Location" />
+	<resource value="DocumentReference" />
+	<resource value="Specimen" />
+	<system value="true" />
+	<type value="true" />
+	<instance value="true" />
+	<parameter>
+		<name value="aidcString" />
+		<use value="in" />
+		<min value="1" />
+		<max value="1" />
+		<type value="String" />
+	</parameter>
+	<parameter>
+		<name value="return" />
+		<use value="out" />
+		<min value="1" />
+		<max value="1" />
+		<documentation
+			value="The Bundle with the partially (or fully)-populated Resources" />
+		<type value="Bundle" />
+	</parameter>
+</OperationDefinition>

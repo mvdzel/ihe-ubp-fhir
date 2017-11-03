@@ -1,0 +1,25 @@
+<ImplementationGuide xmlns="http://hl7.org/fhir">
+	<url value="https://ihe.net/fhir/ImplementationGuide/UBP" />
+	<name value="IHE-UBP" />
+	<status value="active" />
+	<date value="2017-10-31" />
+	<publisher value="Integrating the Healthcare Enterprise (IHE)" />
+	<contact>
+		<name value="Michael van der Zel" />
+	</contact>
+	<description
+		value="Implementation Guide for IHE UBP profile. See http://wiki.ihe.net/index.php/..." />
+	<copyright value="IHE http://www.ihe.net/Governance/#Intellectual_Property" />
+	<fhirVersion value="3.0.1" />
+	<package>
+		<name value="UBP" />
+		<resource>
+			<name value="Device" />
+			<sourceUri value="http://ihe.net/fhir/StructureDefinition/ubp-Device" />
+		</resource>
+		<resource>
+			<name value="Patient" />
+			<sourceUri value="http://ihe.net/fhir/StructureDefinition/ubp-Patient" />
+		</resource>
+	</package>
+</ImplementationGuide>
