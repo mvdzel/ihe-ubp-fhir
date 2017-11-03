@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<StructureDefinition xmlns="http://hl7.org/fhir">
+  <url value="http://ihe.net/fhir/StructureDefinition/IHE.UBP.Practitioner" />
+  <name value="IHEBarcodePatient" />
+  <status value="draft" />
+  <date value="2017-10-31T10:50:09.453+01:00" />
+  <fhirVersion value="3.0.1" />
+  <mapping>
+    <identity value="gs1" />
+    <name value="GS1 Barcode" />
+  </mapping>
+  <kind value="resource" />
+  <abstract value="false" />
+  <type value="Patient" />
+  <baseDefinition value="http://hl7.org/fhir/StructureDefinition/Practitioner" />
+  <derivation value="constraint" />
+  <differential>
+    <element id="Patient.identifier">
+      <path value="Patient.identifier" />
+      <mapping>
+        <identity value="gs1" />
+        <map value="ai=8017" />
+      </mapping>
+    </element>
+  </differential>
+</StructureDefinition>
