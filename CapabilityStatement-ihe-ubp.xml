@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CapabilityStatement xmlns="http://hl7.org/fhir">
-  	<url value="http://ihe.net/fhir/CapabilityStatement/IHE.UBP.decode-barcode" />
+	<url value="http://ihe.net/fhir/CapabilityStatement/IHE.UBP.BarcodeProcessor" />
 	<version value="20171031" />
-	<name value="IHE-UBP" />
-	<title value="IHE-UBP Barcode Capability Statement" />
+	<title value="IHE Universal Barcode Processor Capability Statement" />
+	<name value="IHE-UBP Barcode Processor" />
 	<status value="draft" />
 	<experimental value="true" />
-	<date value="2017-10-31" />
+	<date value="2017-11-03" />
 	<publisher value="IHE" />
 	<contact>
 		<name value="Michael van der Zel" />
@@ -24,6 +24,11 @@
 	<fhirVersion value="3.0.1" />
 	<implementationGuide
 		value="https://ihe.net/fhir/ImplementationGuide/decode-barcode" />
+	<profile>
+		<reference value="http://ihe.net/fhir/StructureDefinition/IHE.UBP.Device" />
+		<reference value="http://ihe.net/fhir/StructureDefinition/IHE.UBP.Patient" />
+		<reference value="http://ihe.net/fhir/StructureDefinition/IHE.UBP.Practitioner" />
+	</profile>
 	<resource>
 		<operation>
 			<name value="decode-barcode" />

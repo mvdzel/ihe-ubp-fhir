@@ -1,8 +1,9 @@
 <ImplementationGuide xmlns="http://hl7.org/fhir">
 	<url value="http://ihe.net/fhir/ImplementationGuide/IHE.UBP" />
 	<name value="IHE-UBP" />
-	<status value="active" />
-	<date value="2017-10-31" />
+	<status value="draft" />
+	<experimental value="false" />
+	<date value="2017-11-03" />
 	<publisher value="Integrating the Healthcare Enterprise (IHE)" />
 	<contact>
 		<name value="Michael van der Zel" />
