@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <StructureDefinition xmlns="http://hl7.org/fhir">
-  <meta>
-    <lastUpdated value="2017-10-31T10:54:09.718+01:00" />
-  </meta>
-  <url value="https://ihe.net/fhir/StructureDefinition/IHEBarcodePatient" />
+  <url value="http://ihe.net/fhir/StructureDefinition/IHE.UBP.Patient" />
   <name value="IHEBarcodePatient" />
   <status value="draft" />
   <date value="2017-10-31T10:50:09.453+01:00" />

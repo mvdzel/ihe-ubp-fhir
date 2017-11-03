@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CapabilityStatement xmlns="http://hl7.org/fhir">
-	<id value="ihe-ubp" />
+  	<url value="http://ihe.net/fhir/CapabilityStatement/IHE.UBP.decode-barcode" />
 	<version value="20171031" />
 	<name value="IHE-UBP" />
 	<title value="IHE-UBP Barcode Capability Statement" />
@@ -22,12 +22,13 @@
 	<copyright value="Copyright &#xA9; IHE" />
 	<kind value="instance" />
 	<fhirVersion value="3.0.1" />
-	<implementationGuide value="https://ihe.net/fhir/ImplementationGuide/decode-barcode" />
+	<implementationGuide
+		value="https://ihe.net/fhir/ImplementationGuide/decode-barcode" />
 	<resource>
 		<operation>
-			<name value="decode-barcode"/>
+			<name value="decode-barcode" />
 			<definition>
-				<reference value="https://ihe.net/fhir/OperationDefinition/decode-barcode"/>
+				<reference value="https://ihe.net/fhir/OperationDefinition/decode-barcode" />
 			</definition>
 		</operation>
 	</resource>

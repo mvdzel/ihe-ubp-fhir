@@ -1,57 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <StructureDefinition xmlns="http://hl7.org/fhir">
-  <meta>
-    <lastUpdated value="2017-10-31T10:54:12.789+01:00" />
-  </meta>
-  <url value="https://ihe.net/fhir/StructureDefinition/IHEBarcodeDevice" />
-  <name value="IHEBarcodeDevice" />
-  <status value="draft" />
-  <date value="2017-10-31T10:33:40.022+01:00" />
-  <fhirVersion value="3.0.1" />
-  <mapping>
-    <identity value="gs1" />
-    <name value="GS1 Barcode" />
-  </mapping>
-  <kind value="resource" />
-  <abstract value="false" />
-  <type value="Device" />
-  <baseDefinition value="http://hl7.org/fhir/StructureDefinition/Device" />
-  <derivation value="constraint" />
-  <differential>
-    <element id="Device.identifier">
-      <path value="Device.identifier" />
-      <mapping>
-        <identity value="gs1" />
-        <map value="ai=21" />
-      </mapping>
-    </element>
-    <element id="Device.udi.deviceIdentifier">
-      <path value="Device.udi.deviceIdentifier" />
-      <mapping>
-        <identity value="gs1" />
-        <map value="ai=01" />
-      </mapping>
-    </element>
-    <element id="Device.udi.carrierAIDC">
-      <path value="Device.udi.carrierAIDC" />
-      <mapping>
-        <identity value="gs1" />
-        <map value="entire barcode" />
-      </mapping>
-    </element>
-    <element id="Device.lotNumber">
-      <path value="Device.lotNumber" />
-      <mapping>
-        <identity value="gs1" />
-        <map value="ai=10" />
-      </mapping>
-    </element>
-    <element id="Device.expirationDate">
-      <path value="Device.expirationDate" />
-      <mapping>
-        <identity value="gs1" />
-        <map value="ai=17" />
-      </mapping>
-    </element>
-  </differential>
+	<url value="http://ihe.net/fhir/StructureDefinition/IHE.UBP.Device" />
+	<name value="IHEBarcodeDevice" />
+	<status value="draft" />
+	<date value="2017-10-31T10:33:40.022+01:00" />
+	<fhirVersion value="3.0.1" />
+	<mapping>
+		<identity value="gs1" />
+		<name value="GS1 Barcode" />
+	</mapping>
+	<kind value="resource" />
+	<abstract value="false" />
+	<type value="Device" />
+	<baseDefinition value="http://hl7.org/fhir/StructureDefinition/Device" />
+	<derivation value="constraint" />
+	<differential>
+		<element id="Device.identifier">
+			<path value="Device.identifier" />
+			<mapping>
+				<identity value="gs1" />
+				<map value="ai=21" />
+			</mapping>
+		</element>
+		<element id="Device.udi.deviceIdentifier">
+			<path value="Device.udi.deviceIdentifier" />
+			<mapping>
+				<identity value="gs1" />
+				<map value="ai=01" />
+			</mapping>
+		</element>
+		<element id="Device.udi.carrierAIDC">
+			<path value="Device.udi.carrierAIDC" />
+			<mapping>
+				<identity value="gs1" />
+				<map value="entire barcode" />
+			</mapping>
+		</element>
+		<element id="Device.lotNumber">
+			<path value="Device.lotNumber" />
+			<mapping>
+				<identity value="gs1" />
+				<map value="ai=10" />
+			</mapping>
+		</element>
+		<element id="Device.expirationDate">
+			<path value="Device.expirationDate" />
+			<mapping>
+				<identity value="gs1" />
+				<map value="ai=17" />
+			</mapping>
+		</element>
+	</differential>
 </StructureDefinition>

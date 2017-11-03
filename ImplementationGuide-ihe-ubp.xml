@@ -1,5 +1,5 @@
 <ImplementationGuide xmlns="http://hl7.org/fhir">
-	<url value="https://ihe.net/fhir/ImplementationGuide/UBP" />
+	<url value="http://ihe.net/fhir/ImplementationGuide/IHE.UBP" />
 	<name value="IHE-UBP" />
 	<status value="active" />
 	<date value="2017-10-31" />
