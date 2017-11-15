@@ -13,7 +13,14 @@
 	<copyright value="IHE http://www.ihe.net/Governance/#Intellectual_Property" />
 	<fhirVersion value="3.0.1" />
 	<package>
-		<name value="UBP" />
+		<name value="CapabilityStatements" />
+		<resource>
+			<name value="BarcodeProcessor" />
+			<sourceUri value="http://ihe.net/fhir/CapabilityStatement/IHE.UBP.BarcodeProcessor" />
+		</resource>
+	</package>
+	<package>
+		<name value="StructureDefinitions" />
 		<resource>
 			<name value="Device" />
 			<sourceUri value="http://ihe.net/fhir/StructureDefinition/ubp-Device" />
@@ -21,6 +28,21 @@
 		<resource>
 			<name value="Patient" />
 			<sourceUri value="http://ihe.net/fhir/StructureDefinition/ubp-Patient" />
+		</resource>
+		<resource>
+			<name value="Practitioner" />
+			<sourceUri value="http://ihe.net/fhir/StructureDefinition/ubp-Practitioner" />
+		</resource>
+	</package>
+	<package>
+		<name value="Operations" />
+		<resource>
+			<name value="DecodeBarcode" />
+			<sourceUri value="http://ihe.net/fhir/OperationDefinition/IHE.UBP.decode-barcode" />
+		</resource>
+		<resource>
+			<name value="DecodeBarcode" />
+			<sourceUri value="http://ihe.net/fhir/OperationDefinition/IHE.UBP.decode-barcode" />
 		</resource>
 	</package>
 </ImplementationGuide>
