@@ -23,26 +23,22 @@
 		<name value="StructureDefinitions" />
 		<resource>
 			<name value="Device" />
-			<sourceUri value="http://ihe.net/fhir/StructureDefinition/ubp-Device" />
+			<sourceReference value="http://ihe.net/fhir/StructureDefinition/ubp-Device" />
 		</resource>
 		<resource>
 			<name value="Patient" />
-			<sourceUri value="http://ihe.net/fhir/StructureDefinition/ubp-Patient" />
+			<sourceReference value="http://ihe.net/fhir/StructureDefinition/ubp-Patient" />
 		</resource>
 		<resource>
 			<name value="Practitioner" />
-			<sourceUri value="http://ihe.net/fhir/StructureDefinition/ubp-Practitioner" />
+			<sourceReference value="http://ihe.net/fhir/StructureDefinition/ubp-Practitioner" />
 		</resource>
 	</package>
 	<package>
 		<name value="Operations" />
 		<resource>
 			<name value="DecodeBarcode" />
-			<sourceUri value="http://ihe.net/fhir/OperationDefinition/IHE.UBP.decode-barcode" />
-		</resource>
-		<resource>
-			<name value="DecodeBarcode" />
-			<sourceUri value="http://ihe.net/fhir/OperationDefinition/IHE.UBP.decode-barcode" />
+			<sourceReference value="http://ihe.net/fhir/OperationDefinition/IHE.UBP.decode-barcode" />
 		</resource>
 	</package>
 </ImplementationGuide>

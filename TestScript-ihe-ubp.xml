@@ -1,0 +1,108 @@
+<TestScript xmlns="http://hl7.org/fhir">
+	<id value="ihe-ubp-testscript" />
+	<url value="" />
+	<name value="IHE UBP Testscript" />
+	<status value="draft" />
+	<experimental value="true" />
+
+	<!-- <origin> <profile value="FHIR-Client" /> </origin> <destination> <profile 
+		value="FHIR-Server" /> </destination> -->
+
+	<test id="01-DecodeBarcode-XML">
+		<name value="Decode Barcode XML" />
+		<description value="Decode a Barcode" />
+		<action>
+			<operation>
+				<!-- By using process-message we don't require resource, since that is a global operation also -->
+				<type>
+					<system value="http://hl7.org/fhir/testscript-operation-codes" />
+					<code value="process-message" />
+				</type>
+				<accept value="xml"/>
+				<params value="/$decode-barcode?hrfString=0108712345670206"/>
+			</operation>
+		</action>
+		<action>
+			<assert>
+				<description value="Confirm that the returned HTTP status is 200(OK)." />
+				<direction value="response" />
+				<response value="okay" />
+			</assert>
+		</action>
+		<action>
+			<assert>
+				<description value="Confirm that the returned resource type is Bundle." />
+				<resource value="Bundle" />
+			</assert>
+		</action>
+		<action>
+			<assert>
+				<description value="" />
+				<operator value="equals" />
+				<path
+					value="Bundle/entry/resource/Device/udi/deviceIdentifier" />
+				<value value="08712345670206" />
+			</assert>
+		</action>
+		<action>
+			<assert>
+				<description value="" />
+				<operator value="equals" />
+				<path
+					value="Bundle/entry/resource/Device/udi/carrierHRF" />
+				<value value="0108712345670206" />
+			</assert>
+		</action>
+		<!-- <Bundle> <entry> <resource> <Device xmlns="http://hl7.org/fhir"> <udi> <deviceIdentifier 
+			value="08712345670206"></deviceIdentifier> <carrierHRF value="0108712345670206"></carrierHRF> 
+			</udi> </Device> </resource> </entry> </Bundle> -->
+	</test>
+	
+	<test id="02-DecodeBarcode-JSON">
+		<name value="Decode Barcode JSON" />
+		<description value="Decode a Barcode" />
+		<action>
+			<operation>
+				<!-- By using process-message we don't require resource, since that is a global operation also -->
+				<type>
+					<system value="http://hl7.org/fhir/testscript-operation-codes" />
+					<code value="process-message" />
+				</type>
+				<accept value="json"/>
+				<params value="/$decode-barcode?hrfString=0108712345670206"/>
+			</operation>
+		</action>
+		<action>
+			<assert>
+				<description value="Confirm that the returned HTTP status is 200(OK)." />
+				<direction value="response" />
+				<response value="okay" />
+			</assert>
+		</action>
+		<action>
+			<assert>
+				<description value="Confirm that the returned resource type is Bundle." />
+				<resource value="Bundle" />
+			</assert>
+		</action>
+		<action>
+			<assert>
+				<description value="" />
+				<operator value="equals" />
+				<path
+					value=".entry.resource.udi.deviceIdentifier" />
+				<value value="08712345670206" />
+			</assert>
+		</action>
+		<action>
+			<assert>
+				<description value="" />
+				<operator value="equals" />
+				<path
+					value=".entry.resource..udi.carrierHRF" />
+				<value value="0108712345670206" />
+			</assert>
+		</action>
+	</test>
+	
+</TestScript>
