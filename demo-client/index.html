@@ -1,0 +1,145 @@
+<html>
+<head>
+<style>
+
+body {
+    background: url(bg.jpg); 
+    background-size: 100%;
+}
+table {
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+    border-radius: 25px;
+}
+th,td {
+    padding: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    vertical-align: top;
+}
+textarea {
+    font-size: 120%;
+}
+</style>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<h1><img src="ihe.png" height="50" align="middle"/>UBP - Universal Barcode Processing Profile FHIR Demo</h1>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <table id="patient">
+        <tr><td colspan="4">Barcode: <input type="text" size="80" ng-model="barcode"/><button ng-click="decodePatientBarcode()">Decode</button><br/><i>Example: 010871234567020617270620801710101010101010101080180123456789012345678</i></td></tr>
+        <tr><td><b>Care Provider</b> <button ng-click="lookupPractitioner()">Lookup @EPD</button><br/><textarea rows="5" cols="30">{{practitioner}}</textarea></td>
+            <td><b>Patient</b> <button ng-click="lookupPatient()">Lookup @EPD</button><br/>
+                <textarea rows="5" cols="30">{{patient}}</textarea></td>
+            <td><b>Device</b> <button ng-click="">Lookup @EPD</button> <button ng-click="">Lookup @GS1</button><br/>
+                <textarea rows="5" cols="30">{{device}}</textarea></td>
+            <td><b>Medication</b> <button ng-click="">Lookup @EPD</button> <button ng-click="">Lookup @GS1</button><br/>
+                <textarea rows="5" cols="30">{{medication}}</textarea>
+                <button ng-click="">Create Statement</button>  <button ng-click="">Create Administration</button></td></tr>
+        <tr><td colspan="4"><b>FHIR json</b><br/><textarea style="font-size: 10px;" rows="30" cols="130">{{decoded_barcode_fhir}}</textarea></td></tr>
+    </table>
+</div>
+    
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.decodePatientBarcode = function() {
+        $scope.decoded_barcode_fhir = '';
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://ihe-ubp-fhir.herokuapp.com/fhir/$decode-barcode?hrfString=" + $scope.barcode,
+            "method": "GET",
+            "headers": {
+                "content-type": "application/json",
+//                "cache-control": "no-cache",
+//                "authorization": "guest",
+//                "x-requested-with": "Test"
+            },
+            "processData": false
+        }
+        $.ajax(settings).done(function (response) {
+            $scope.decoded_barcode_fhir = JSON.stringify(response, null, "  ");
+            response.entry.forEach((entry) => {
+//                console.log(entry.resource.resourceType);
+                if (entry.resource.resourceType == 'Practitioner') {
+                    $scope.practitioner = "id: " + entry.resource.identifier[0].value;
+                }
+                if (entry.resource.resourceType == 'Patient') {
+                    $scope.patient = "id: " + entry.resource.identifier[0].value;
+                }
+                if (entry.resource.resourceType == 'Device') {
+                    $scope.device = "udi: " + entry.resource.udi.deviceIdentifier;
+                }
+                if (entry.resource.resourceType == 'Medication') {
+                    $scope.medication = "code: " + entry.resource.code.coding[0].code;
+                }
+            });
+            $scope.$apply();
+        });
+    }
+
+    $scope.lookupPatient = function() {
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://cors-anywhere.herokuapp.com/https://vonk.test-nictiz.nl/Patient/_search?identifier=1587965423",
+            "method": "GET",
+            "headers": {
+                "content-type": "application/json",
+            },
+            "processData": false
+        }
+        $.ajax(settings).done(function (response) {
+//            console.log(JSON.stringify(response, null, "  "));
+            $scope.patient = "id: " + response.identifier[0].value + 
+                "\nname: " + response.name[0].given[0] + " " + response.name[0].family +
+                "\nbirthDate: " + response.birthDate;
+            $scope.$apply();
+        });
+    };
+
+    $scope.lookupPractitioner = function() {
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://cors-anywhere.herokuapp.com/https://vonk.test-nictiz.nl/Practitioner/_search?identifier=129854845",
+            "method": "GET",
+            "headers": {
+                "content-type": "application/json",
+            },
+            "processData": false
+        }
+        $.ajax(settings).done(function (response) {
+            $scope.practitioner = "big: " + response.identifier[2].value + 
+                "\nname: " + response.name[0].given[0] + " " + response.name[0].family;
+            $scope.$apply();
+        });
+    };
+    
+    // Lookup Device adhv udi-di
+    // http://vonk.fire.ly/Device/_search?udi-di=00884838038752[&patient=<id>] <- werkt niet :-( )
+    // http://vonk.fire.ly/Device?udi-di=00884838038752[&patient=<id>] <- werkt wel!
+
+    // Lookup Medication adhv code==GTIN (soort medicatie) icm patient??
+    // Medication worden nu met SCT gecodeerd... Dus GTIN->SCT
+    // http://vonk.fire.ly/Medication/_search?code=<gtin>
+
+    // Scan Patient + Medicatie levert een Medication Statement/Administration
+
+    // Buttons toevoegen:
+    // Medicatie: "Create Statement" en "Create Administration"
+    // Implantatie: "Create Implant", "Create Implant Reg"
+
+    // Submit "Implant" to EPD / ERP (Voorraadbeheer)
+    // Submit "Implant Reg" to LIR/LROI
+
+});
+</script>
+
+</body>
+</html>
