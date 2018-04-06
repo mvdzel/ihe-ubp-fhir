@@ -35,24 +35,31 @@ textarea {
         <tr><td><b>Care Provider</b> <button ng-click="lookupPractitioner()">Lookup @EPD</button><br/><textarea rows="5" cols="30">{{practitioner}}</textarea></td>
             <td><b>Patient</b> <button ng-click="lookupPatient()">Lookup @EPD</button><br/>
                 <textarea rows="5" cols="30">{{patient}}</textarea></td>
-            <td><b>Device</b> <button ng-click="">Lookup @EPD</button> <button ng-click="">Lookup @GS1</button><br/>
-                <textarea rows="5" cols="30">{{device}}</textarea></td>
-            <td><b>Medication</b> <button ng-click="">Lookup @EPD</button> <button ng-click="">Lookup @GS1</button><br/>
-                <textarea rows="5" cols="30">{{medication}}</textarea>
+            <td><b>Device</b> <button ng-click="lookupDevice()">Lookup @EPD</button> <button ng-click="">Lookup @GS1</button><br/>
+                <textarea rows="5" cols="30">{{device}}</textarea><br/>
+                <button ng-click="">Create Implant Notification</button></td>
+            <td><b>Medication</b> <button ng-click="lookupMedication()">Lookup @EPD</button> <button ng-click="">Lookup @GS1</button><br/>
+                <textarea rows="5" cols="30">{{medication}}</textarea><br/>
                 <button ng-click="">Create Statement</button>  <button ng-click="">Create Administration</button></td></tr>
-        <tr><td colspan="4"><b>FHIR json</b><br/><textarea style="font-size: 10px;" rows="30" cols="130">{{decoded_barcode_fhir}}</textarea></td></tr>
+        <tr><td colspan="4"><b>FHIR json</b><br/><textarea style="font-size: 10px;" rows="20" cols="130">{{raw_fhir}}</textarea></td></tr>
     </table>
+    <br/>
+    <center><i>Powered by:</i><img src="fhir_logo.png" valign="middle" height="50"/> <img src="vonk_logo.png" valign="middle" height="50"/> <img src="heroku_logo.png" valign="middle" height="50"/></center>
 </div>
     
 <script>
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope) {
     $scope.decodePatientBarcode = function() {
-        $scope.decoded_barcode_fhir = '';
+        $scope.raw_fhir = '... waiting for response ...';
+
+        // remove stearing codes
+        var hrfString = $scope.barcode.replace(/\]C1/g, '');
+
         var settings = {
             "async": true,
             "crossDomain": true,
-            "url": "https://ihe-ubp-fhir.herokuapp.com/fhir/$decode-barcode?hrfString=" + $scope.barcode,
+            "url": "https://ihe-ubp-fhir.herokuapp.com/fhir/$decode-barcode?hrfString=" + hrfString,
             "method": "GET",
             "headers": {
                 "content-type": "application/json",
@@ -63,7 +70,7 @@ app.controller('myCtrl', function($scope) {
             "processData": false
         }
         $.ajax(settings).done(function (response) {
-            $scope.decoded_barcode_fhir = JSON.stringify(response, null, "  ");
+            $scope.raw_fhir = JSON.stringify(response, null, "  ");
             response.entry.forEach((entry) => {
 //                console.log(entry.resource.resourceType);
                 if (entry.resource.resourceType == 'Practitioner') {
@@ -84,6 +91,7 @@ app.controller('myCtrl', function($scope) {
     }
 
     $scope.lookupPatient = function() {
+        $scope.raw_fhir = '... waiting for response ...';
         var settings = {
             "async": true,
             "crossDomain": true,
@@ -95,6 +103,7 @@ app.controller('myCtrl', function($scope) {
             "processData": false
         }
         $.ajax(settings).done(function (response) {
+            $scope.raw_fhir = JSON.stringify(response, null, "  ");
 //            console.log(JSON.stringify(response, null, "  "));
             $scope.patient = "id: " + response.identifier[0].value + 
                 "\nname: " + response.name[0].given[0] + " " + response.name[0].family +
@@ -104,6 +113,7 @@ app.controller('myCtrl', function($scope) {
     };
 
     $scope.lookupPractitioner = function() {
+        $scope.raw_fhir = '... waiting for response ...';
         var settings = {
             "async": true,
             "crossDomain": true,
@@ -115,19 +125,61 @@ app.controller('myCtrl', function($scope) {
             "processData": false
         }
         $.ajax(settings).done(function (response) {
+            $scope.raw_fhir = JSON.stringify(response, null, "  ");
             $scope.practitioner = "big: " + response.identifier[2].value + 
                 "\nname: " + response.name[0].given[0] + " " + response.name[0].family;
             $scope.$apply();
         });
     };
-    
-    // Lookup Device adhv udi-di
-    // http://vonk.fire.ly/Device/_search?udi-di=00884838038752[&patient=<id>] <- werkt niet :-( )
-    // http://vonk.fire.ly/Device?udi-di=00884838038752[&patient=<id>] <- werkt wel!
 
     // Lookup Medication adhv code==GTIN (soort medicatie) icm patient??
     // Medication worden nu met SCT gecodeerd... Dus GTIN->SCT
     // http://vonk.fire.ly/Medication/_search?code=<gtin>
+    $scope.lookupMedication = function() {
+        $scope.raw_fhir = '... waiting for response ...';
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://vonk.fire.ly/Medication/medexample015",
+            "method": "GET",
+            "headers": {
+                "content-type": "application/json",
+            },
+            "processData": false
+        }
+        $.ajax(settings).done(function (response) {
+            delete response.text; // text is in the way of actual fhir
+            $scope.raw_fhir = JSON.stringify(response, null, "  ");
+            $scope.medication = "medication: " + response.code.coding[0].display;
+            $scope.$apply();
+        });
+    };
+
+    // Lookup Device adhv udi-di
+    // http://vonk.fire.ly/Device/_search?udi-di=00884838038752[&patient=<id>] <- werkt niet :-( )
+    // http://vonk.fire.ly/Device?udi-di=00884838038752[&patient=<id>] <- werkt wel!
+    $scope.lookupDevice = function() {
+        $scope.raw_fhir = '... waiting for response ...';
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://vonk.fire.ly/Device/example-udi1",
+            "method": "GET",
+            "headers": {
+                "content-type": "application/json",
+            },
+            "processData": false
+        }
+        $.ajax(settings).done(function (response) {
+            delete response.text; // text is in the way of actual fhir
+            $scope.raw_fhir = JSON.stringify(response, null, "  ");
+            $scope.device = "udi: " + response.udi.carrierHRF||response.udi.deviceIdentifier;
+            if(response.type) $scope.device += "\ndevice: " + response.type.coding[0].display;
+            $scope.device += "\nmanufacturer: " + response.manufacturer;
+            if(response.model) $scope.device += "\nmodel: " + response.model;
+            $scope.$apply();
+        });
+    };
 
     // Scan Patient + Medicatie levert een Medication Statement/Administration
 
