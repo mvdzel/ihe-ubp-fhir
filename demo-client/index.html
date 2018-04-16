@@ -1,10 +1,16 @@
 <html>
 <head>
+<!-- get the required files from 3rd party sources -->
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <style>
 
 body {
+    font-family: 'Roboto', sans-serif;
     background: url(bg.jpg); 
     background-size: 100%;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 table {
     border-collapse: collapse;
@@ -21,6 +27,9 @@ th,td {
 }
 textarea {
     font-size: 120%;
+    background: transparent;
+    resize: none;
+    border: 0 none;
 }
 </style>
 </head>
@@ -30,18 +39,19 @@ textarea {
 
 <h1><img src="ihe.png" height="50" align="middle"/>UBP - Universal Barcode Processing Profile FHIR Demo</h1>
 <div ng-app="myApp" ng-controller="myCtrl">
-    <table id="patient">
-        <tr><td colspan="4">Barcode: <input type="text" size="80" ng-model="barcode"/><button ng-click="decodePatientBarcode()">Decode</button><br/><i>Example: 010871234567020617270620801710101010101010101080180123456789012345678</i></td></tr>
-        <tr><td><b>Care Provider</b> <button ng-click="lookupPractitioner()">Lookup @EPD</button><br/><textarea rows="5" cols="30">{{practitioner}}</textarea></td>
+    <table id="patient" width="98%">
+        <tr><td colspan="3">Barcode: <input type="text" size="80" ng-model="barcode"/><button ng-click="decodePatientBarcode()">Decode</button><br/><i>Example: 010871234567020617270620801710101010101010101080180123456789012345678</i></td></tr>
+        <tr><td><b>Care Provider</b> <button ng-click="lookupPractitioner()">Lookup @EPD</button><br/><textarea rows="8" cols="40">{{practitioner}}</textarea></td>
             <td><b>Patient</b> <button ng-click="lookupPatient()">Lookup @EPD</button><br/>
-                <textarea rows="5" cols="30">{{patient}}</textarea></td>
-            <td><b>Device</b> <button ng-click="lookupDevice()">Lookup @EPD</button> <button ng-click="">Lookup @GS1</button><br/>
-                <textarea rows="5" cols="30">{{device}}</textarea><br/>
-                <button ng-click="">Create Implant Notification</button></td>
+                <textarea rows="8" cols="40">{{patient}}</textarea></td>
+            <td rowspan="2"><b>FHIR json</b><br/><textarea style="font-size: 10px; color: whitesmoke; background-color: midnightblue;" rows="35" cols="100">{{raw_fhir}}</textarea></td></tr>
+        <tr><td><b>Device</b> <button ng-click="lookupDevice()">Lookup @EPD</button> <button ng-click="">Lookup @GS1</button><br/>
+            <textarea rows="8" cols="40">{{device}}</textarea><br/>
+            <button ng-click="">Create Implant Notification</button></td>
             <td><b>Medication</b> <button ng-click="lookupMedication()">Lookup @EPD</button> <button ng-click="">Lookup @GS1</button><br/>
-                <textarea rows="5" cols="30">{{medication}}</textarea><br/>
-                <button ng-click="">Create Statement</button>  <button ng-click="">Create Administration</button></td></tr>
-        <tr><td colspan="4"><b>FHIR json</b><br/><textarea style="font-size: 10px;" rows="20" cols="130">{{raw_fhir}}</textarea></td></tr>
+            <textarea rows="8" cols="40">{{medication}}</textarea><br/>
+            <button ng-click="">Create Statement</button>  <button ng-click="">Create Administration</button></td></tr>
+    
     </table>
     <br/>
     <center><i>Powered by:</i><img src="fhir_logo.png" valign="middle" height="50"/> <img src="vonk_logo.png" valign="middle" height="50"/> <img src="heroku_logo.png" valign="middle" height="50"/></center>
